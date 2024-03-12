@@ -10,7 +10,6 @@ export default function sketch(p5) {
     
     var altMode = true // 0 -> Disable mapping for one player | 1 -> Disable mapping for both player
     var randomKeys = true // 1 -> Random a selection of keys for each player to use
-    var dieOnceHit = false
     var roundsPerRandom = 2
     var randomCount = 0
     var playerCount = 2
@@ -113,6 +112,7 @@ export default function sketch(p5) {
         }
         
         resetPosition() {
+            this.startPos = p5.createVector(startPosList[mazeCount][0] - (!startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0), startPosList[mazeCount][1] - (startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0))
             this.position = this.startPos.copy()
         }
         
@@ -196,7 +196,6 @@ export default function sketch(p5) {
                     console.log(mazeCount)
                     for (let i = 0; i < playerCount; i++) {
                         players[i].hypothesesList.forEach(hyp => {
-                            hyp.startPos = p5.createVector(startPosList[mazeCount][0] - (!startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0), startPosList[mazeCount][1] - (startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0))
                             hyp.resetPosition();
                         })
                     }  
@@ -406,7 +405,7 @@ export default function sketch(p5) {
             } 
             p5.strokeWeight(this.strokeWeight);
             this.position.add(this.speedX, this.speedY);
-            if ((this.speedY > 0 && this.position.y >= this.endPos.y) || this.speedY < 0 && this.position.y <= this.endPos.y)
+            if ((this.speedY > 0 && this.position.y >= this.endPos.y) || (this.speedY < 0 && this.position.y <= this.endPos.y))
                 this.speedY = -this.speedY
             else if ((this.speedX > 0 && this.position.x >= this.endPos.x) || (this.speedX < 0 && this.position.x <= this.endPos.x))
                 this.speedX = -this.speedX
@@ -527,8 +526,7 @@ export default function sketch(p5) {
     
         for (let i = 0; i < playerCount; i++) {
             allMapping.forEach(function(mapping, ) {
-                var agent = new Agent(p5.createVector(startPosList[mazeCount][0] - (!startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0), startPosList[mazeCount][1] - (startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0)), mapping, agentSpeed, agentSize, agentWeight, playerColors[i], i)
-                players[i].hypothesesList.push(agent)
+                createAgents(mapping);
             });
         }
 
@@ -659,10 +657,8 @@ export default function sketch(p5) {
         let keyboardPos = p5.createVector(worldWidth / 2 - keyboardWidth / 2, worldHeight - keyboardHeight)
         let keySize = 40
         
-        let numCol = [13, 11, 10]
         let offsetX = [1, 22, 37]
         let offsetY = [1, 8, 14]
-        let divider = [6, 6, 5]
         let highlightColor = p5.color('yellow')
 
         for (let j = 0; j < keys[0].length; j++) {
@@ -717,6 +713,11 @@ export default function sketch(p5) {
                 p5.text(dir[3], 107 + xOffset * player.index, 222 + yOffset * i) // left
             })
         })
+    }
+
+    function createAgents(mapping) {
+        var agent = new Agent(p5.createVector(startPosList[mazeCount][0] - (!startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0), startPosList[mazeCount][1] - (startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0)), mapping, agentSpeed, agentSize, agentWeight, playerColors[i], i)
+        players[i].hypothesesList.push(agent)
     }
 
     function generateRandomKeys() {
