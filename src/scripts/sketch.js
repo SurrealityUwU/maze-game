@@ -6,7 +6,7 @@ export default function sketch(p5) {
         DOWN: "DOWN",
         RIGHT: "RIGHT",
         LEFT: "LEFT",
-    }
+    } 
     
     var altMode = true // 0 -> Disable mapping for one player | 1 -> Disable mapping for both player
     var randomKeys = true // 1 -> Random a selection of keys for each player to use
