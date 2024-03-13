@@ -467,7 +467,7 @@ export default function sketch(p5) {
     var startPosList = [[600, 450], [350, 350], [350, 150]] 
     var startingDirectionList = [0, 1, 0]  
     var weight = 3
-    var mazeCount = 1
+    var mazeCount = 2
     // var goalPos = [650, 350, 900, 500]
 
     // [startX, startY], [endX, endY], [speedX, speedY], size
