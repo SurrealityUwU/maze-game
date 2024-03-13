@@ -526,7 +526,7 @@ export default function sketch(p5) {
     
         for (let i = 0; i < playerCount; i++) {
             allMapping.forEach(function(mapping, ) {
-                createAgents(mapping);
+                createAgents(mapping, i);
             });
         }
 
@@ -715,7 +715,7 @@ export default function sketch(p5) {
         })
     }
 
-    function createAgents(mapping) {
+    function createAgents(mapping, i) {
         var agent = new Agent(p5.createVector(startPosList[mazeCount][0] - (!startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0), startPosList[mazeCount][1] - (startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0)), mapping, agentSpeed, agentSize, agentWeight, playerColors[i], i)
         players[i].hypothesesList.push(agent)
     }
