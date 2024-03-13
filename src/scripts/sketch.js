@@ -111,8 +111,8 @@ export default function sketch(p5) {
             }
         }
         
-        resetPosition() {
-            this.startPos = p5.createVector(startPosList[mazeCount][0] - (!startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0), startPosList[mazeCount][1] - (startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * i : 0))
+        resetPosition(playerIndex) {
+            this.startPos = p5.createVector(startPosList[mazeCount][0] - (!startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * playerIndex : 0), startPosList[mazeCount][1] - (startingDirectionList[mazeCount] ? agentSize/2 - 20 + 40 * playerIndex : 0))
             this.position = this.startPos.copy()
         }
         
@@ -164,7 +164,7 @@ export default function sketch(p5) {
                 console.log(players[this.playerIndex].hypothesesList)
                 
                 players.forEach(player => player.hypothesesList.forEach((hyp) => {
-                    hyp.resetPosition();
+                    hyp.resetPosition(player.index);
                 }))
 
                 let i = 0
@@ -196,7 +196,7 @@ export default function sketch(p5) {
                     console.log(mazeCount)
                     for (let i = 0; i < playerCount; i++) {
                         players[i].hypothesesList.forEach(hyp => {
-                            hyp.resetPosition();
+                            hyp.resetPosition(i);
                         })
                     }  
 
