@@ -216,7 +216,7 @@ export default function sketch(p5) {
             }
         }
 
-        isGwwwwCollideWithObstacle(obs) {
+        isGoingToCollideWithObstacle(obs) {
             let buffer = 1; //px
             
             if (this.position.x + this.size >= obs.position.x - obs.size/2 && this.position.x <= obs.position.x + obs.size/2 &&
