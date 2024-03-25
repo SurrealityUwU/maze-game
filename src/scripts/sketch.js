@@ -9,8 +9,8 @@ export default function sketch(p5) {
     } 
     
     var altMode = true // 0 -> Disable mapping for one player | 1 -> Disable mapping for both player
-    var randomKeys = true // 1 -> Random a selection of keys for each player to use
-    var roundsPerRandom = 2
+    var randomKeys = false // 1 -> Random a selection of keys for each player to use
+    var roundsPerRandom = 2 
     var randomCount = 0
     var playerCount = 2
     var maxMap = 3
@@ -116,7 +116,6 @@ export default function sketch(p5) {
             this.position = this.startPos.copy()
         }
         
-        // TOP LEFT PORBLEM
         isCollidingWithWall(wall) {
             var isColliding = false;
             let distanceX = worldWidth, distanceY = worldHeight;
@@ -217,74 +216,40 @@ export default function sketch(p5) {
             }
         }
 
-        isGoingToCollideWithObstacle(obs) {
+        isGwwwwCollideWithObstacle(obs) {
             let buffer = 1; //px
             
-
             if (this.position.x + this.size >= obs.position.x - obs.size/2 && this.position.x <= obs.position.x + obs.size/2 &&
                 this.position.y + this.size >= obs.position.y - obs.size/2 && this.position.y <= obs.position.y + obs.size/2) {
 
                 let distX = worldWidth, distY = worldWidth, posX, posY;
 
          
-                if (this.position.x > obs.position.x - obs.size/2) {
-                    console.log("Collide Right")
+                if (this.position.x > obs.position.x - obs.size/2) { // Collide Right
                     posX = obs.position.x + obs.size/2 + buffer
                     distX = p5.dist(this.position.x, 0, obs.position.x + obs.size/2, 0)
-                } else if (this.position.x + this.size < obs.position.x + obs.size/2) {
-                    console.log("Collide Left") 
+                } else if (this.position.x + this.size < obs.position.x + obs.size/2) { // Collide Left
                     posX = obs.position.x - obs.size/2 - this.size - buffer
                     distX = p5.dist(this.position.x + this.size, 0, obs.position.x - obs.size/2, 0)
                 }
                 
-                if (this.position.y > obs.position.y - obs.size/2) {
-                    console.log("Collide Bottom")
+                if (this.position.y > obs.position.y - obs.size/2) { // Collide Bottom
                     posY = obs.position.y + obs.size/2 + buffer
                     distY = p5.dist(0, this.position.y, 0, obs.position.y + obs.size/2)
-                } else if (this.position.y + this.size < obs.position.y + obs.size/2) {
-                    console.log("Collide Top")
+                } else if (this.position.y + this.size < obs.position.y + obs.size/2) { // Collide Top
                     posY = obs.position.y - obs.size/2 - this.size - buffer
                     distY = p5.dist(0, this.position.y + this.size, 0, obs.position.y - obs.size/2)
                 }
 
-                if (distX === worldWidth && distY === worldWidth) {
-                    return false
-                }
+                if (distX === worldWidth && distY === worldWidth) { return false }
 
-                if (Math.abs(distX) < Math.abs(distY)) {
-                    console.log('set x')
+                if (Math.abs(distX) < Math.abs(distY))
                     this.position.x = posX;
-                } else {
-                    console.log('set y')
-                    console.log(posY)
+                else
                     this.position.y = posY;
-                }
                 return true
                 
             }
-
-            //     if (wall.startPos.y === wall.endPos.y) {
-            //     let d1 = p5.dist(this.position.x, this.position.y, this.position.x, wall.startPos.y);
-            //     let d2 = p5.dist(this.position.x, this.position.y + this.size, this.position.x, wall.startPos.y);
-        
-            //     distanceY = (d1 < d2) ? d1 : -d2 
-                
-            //     } else if (wall.startPos.x === wall.endPos.x) {
-            //     let d1 = p5.dist(this.position.x, this.position.y, wall.startPos.x, this.position.y);
-            //     let d2 = p5.dist(this.position.x + this.size, this.position.y, wall.startPos.x, this.position.y);
-        
-            //     distanceX = (d1 < d2) ? d1 : -d2 
-            //     }
-            // }    
-    
-            // if (isColliding) {
-            //     if (Math.abs(distanceX) < Math.abs(distanceY))
-            //         this.position.x = this.position.x + (distanceX * buffer) 
-            //     else
-            //         this.position.y = this.position.y + (distanceY * buffer)
-            //     return true
-            // }
-            // return false
         }
 
         // isGoingToCollideWithObstacle(pos, deltaLocation, agentSize) {      
@@ -467,7 +432,7 @@ export default function sketch(p5) {
     var startPosList = [[600, 450], [350, 350], [350, 150]] 
     var startingDirectionList = [0, 1, 0]  
     var weight = 3
-    var mazeCount = 2
+    var mazeCount = 0
     // var goalPos = [650, 350, 900, 500]
 
     // [startX, startY], [endX, endY], [speedX, speedY], size
